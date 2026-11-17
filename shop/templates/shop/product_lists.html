@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product List</title>
+  </head>
+  <body>
+    <body bgcolor="00ff00">
+    <h1>Product List</h1>
+    <ul>
+      <!--Loopin to reitrate products inside my beatiful views~ -->
+      {% for product in products %}
+      <li>
+        <strong><i>{{ product.name }} </strong></i>- ${{ product.price }} (Category:
+        {{product.category.name}})
+      </li>
+      {% empty %}
+      <li>No active products available.</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
