@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os #for configuring the env variables
+from dotenv import load_dotenv #for configuring the env variables
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env') #for configuring the env variables
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +43,8 @@ INSTALLED_APPS = [
 
     #My custom apps
     'shop',
+    #For sms sending
+    "sms",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +128,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+## Infobip API configuration
+INFOBIP_BASE_URL = os.getenv("INFOBIP_BASE_URL") #for base url
+INFOBIP_API_KEY = os.getenv("INFOBIP_API_KEY") #for api key
+INFOBIP_SENDER = os.getenv("INFOBIP_SENDER") #For sender
