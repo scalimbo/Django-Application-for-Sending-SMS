@@ -120,6 +120,34 @@ python manage.py test
 
 For production, set `DEBUG=False`, configure `ALLOWED_HOSTS`, use a secure
 `SECRET_KEY`, and deploy behind a production-ready web server.
-
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 dev comment:
 The devs first tried using twilio as recommended by their instructor, however twilio doesn't support free trial for the region the developers are in. Next, they tried Infobip. This one gives base url, api key, and sender number. However, for a message to be sent Infobip asks for the company details from the developers, which they don't have since this is a school project. Lastly, the developers tried philsms, but they do not support free trial for thesis, and testing purposes. Which set the developers back to infobip. Thus, the developers begrudgingly used it even as the sending is rejected. The developers also cannot log into their infobip account after sending one trial message.
