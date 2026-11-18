@@ -1,17 +1,22 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Send SMS</title>
+    <link rel="stylesheet" href="{% static 'shop/send_sms.css' %}" />
   </head>
   <body>
-    <main>
+    <main class="sms-card">
       <h1>Send SMS</h1>
-      <p><a href="{% url 'sms:dashboard' %}">View SMS dashboard</a></p>
+
+      <div class="dashboard-link">
+        <a href="{% url 'sms:dashboard' %}">View SMS Dashboard →</a>
+      </div>
 
       {% if messages %} {% for message in messages %}
-      <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+      <p {% if message.tags %}class="alert {{ message.tags }}" {% endif %}>
         {{ message }}
       </p>
       {% endfor %} {% endif %}
@@ -19,27 +24,31 @@
       <form method="post">
         {% csrf_token %} {{ form.non_field_errors }}
 
-        <div>
+        <div class="form-group">
           <label for="{{ form.recipient.id_for_label }}">
             {{ form.recipient.label }}
           </label>
           {{ form.recipient }} {{ form.recipient.errors }}
         </div>
 
-        <div>
+        <div class="form-group">
           <label for="{{ form.message.id_for_label }}">
             {{ form.message.label }}
           </label>
           {{ form.message }} {{ form.message.errors }}
-          <p><span id="character-count">0</span>/160 characters</p>
+
+          <p class="character-counter">
+            <span id="character-count">0</span>/160 characters
+          </p>
         </div>
 
         <button type="submit">Send SMS</button>
       </form>
     </main>
+
     <script>
       const messageField = document.querySelector(
-        "#{{ form.message.id_for_label }}"
+        "#{{ form.message.id_for_label }}",
       );
       const characterCount = document.querySelector("#character-count");
 
