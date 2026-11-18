@@ -18,6 +18,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / '.env') #for configuring the env variables
 
+INFOBIP_BASE_URL = os.getenv("INFOBIP_BASE_URL", "").strip()
+INFOBIP_API_KEY = os.getenv("INFOBIP_API_KEY", "").strip()
+INFOBIP_SENDER = os.getenv("INFOBIP_SENDER", "").strip()
+
+if INFOBIP_BASE_URL and not INFOBIP_BASE_URL.startswith(("http://", "https://")):
+    INFOBIP_BASE_URL = f"https://{INFOBIP_BASE_URL}"
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/

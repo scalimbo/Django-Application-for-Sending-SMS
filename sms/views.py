@@ -1,4 +1,5 @@
 import requests
+import logging
 
 from django.conf import settings
 from django.contrib import messages
@@ -6,6 +7,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render
 
 from .forms import SmsForm
+
+logger = logging.getLogger(__name__)
 
 
 def send_sms_view(request):
@@ -71,11 +74,16 @@ def send_sms_view(request):
                     )
                     form = SmsForm()
                 else:
+                    logger.error(
+                        "Infobip rejected an SMS request with status %s.",
+                        response.status_code,
+                    )
                     messages.error(
                         request,
                         "Infobip rejected the SMS request.",
                     )
-            except requests.RequestException:
+            except requests.RequestException as exc:
+                logger.error("Unable to connect to Infobip: %s", exc)
                 messages.error(
                     request,
                     "Unable to connect to the SMS gateway.",
