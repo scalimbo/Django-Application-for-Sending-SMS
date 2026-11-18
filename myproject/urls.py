@@ -15,10 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include,path
 from shop.views import product_list_view #Imports my beatiful views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', product_list_view), #Maps URL route to my beautiful view function~
+    path('sms/', include('sms.urls')),
 ]
