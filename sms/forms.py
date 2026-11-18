@@ -2,12 +2,13 @@ import re
 from django import forms #for creating forms
 
 class SmsForm(forms.Form):
-    recipient = forms.CharField(label='Recipient', max_length=20, 
-                                widget=forms.TextInput(attrs={
-                                    placeholder': 'Enter recipient number', "class": "form-control"
-                                                              }
-                                                       ),
-                                )
+    recipient = forms.CharField(
+        max_length=20,label='Recipient', max_length=20, widget=forms.TextInput(
+            attrs=
+            {placeholder': 'Enter recipient number', "class": "form-control"
+             }
+        ),
+    )
     meassage = forms.CharField(
         max_length=160,
         label="Message",
