@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Product
+from django.conf import settings
 
 # My wonderful views go here~
 
