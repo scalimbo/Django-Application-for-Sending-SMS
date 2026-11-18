@@ -15,11 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include,path
-from shop.views import product_list_view #Imports my beatiful views
+from django.urls import include, path
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', product_list_view), #Maps URL route to my beautiful view function~
+    path('', RedirectView.as_view(url='/sms/send/', permanent=False)),
     path('sms/', include('sms.urls')),
 ]

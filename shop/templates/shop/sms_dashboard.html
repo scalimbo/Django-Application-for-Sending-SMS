@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMS Dashboard</title>
+  </head>
+  <body>
+    <main>
+      <h1>SMS Dashboard</h1>
+      <p><a href="{% url 'sms:send_sms' %}">Send another SMS</a></p>
+
+      <section>
+        <h2>Summary</h2>
+        <p>Sent or submitted: {{ sent_count }}</p>
+        <p>Failed: {{ failed_count }}</p>
+      </section>
+
+      <section>
+        <h2>Recent Messages</h2>
+        {% if recent_messages %}
+          <table>
+            <thead>
+              <tr>
+                <th>Recipient</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Provider Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sms in recent_messages %}
+                <tr>
+                  <td>{{ sms.recipient }}</td>
+                  <td>{{ sms.text }}</td>
+                  <td>{{ sms.get_status_display }}</td>
+                  <td>{{ sms.provider_status|default:"-" }}</td>
+                  <td>{{ sms.created_at|date:"M d, Y h:i A" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No messages have been sent.</p>
+        {% endif %}
+      </section>
+
+      <section>
+        <h2>Failed Messages</h2>
+        {% if failed_messages %}
+          <table>
+            <thead>
+              <tr>
+                <th>Recipient</th>
+                <th>Message</th>
+                <th>Error</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sms in failed_messages %}
+                <tr>
+                  <td>{{ sms.recipient }}</td>
+                  <td>{{ sms.text }}</td>
+                  <td>{{ sms.error_message|default:"Provider rejected the message." }}</td>
+                  <td>{{ sms.created_at|date:"M d, Y h:i A" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No failed messages.</p>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>

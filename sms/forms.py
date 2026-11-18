@@ -22,6 +22,7 @@ class SmsForm(forms.Form):
                 "rows": 5,
                 "placeholder": "Enter your message here",
                 "class": "form-control",
+                "maxlength": "160",
             }
         ),
     )

@@ -8,6 +8,7 @@
   <body>
     <main>
       <h1>Send SMS</h1>
+      <p><a href="{% url 'sms:dashboard' %}">View SMS dashboard</a></p>
 
       {% if messages %} {% for message in messages %}
       <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>
@@ -30,10 +31,24 @@
             {{ form.message.label }}
           </label>
           {{ form.message }} {{ form.message.errors }}
+          <p><span id="character-count">0</span>/160 characters</p>
         </div>
 
         <button type="submit">Send SMS</button>
       </form>
     </main>
+    <script>
+      const messageField = document.querySelector(
+        "#{{ form.message.id_for_label }}"
+      );
+      const characterCount = document.querySelector("#character-count");
+
+      function updateCharacterCount() {
+        characterCount.textContent = messageField.value.length;
+      }
+
+      messageField.addEventListener("input", updateCharacterCount);
+      updateCharacterCount();
+    </script>
   </body>
 </html>
